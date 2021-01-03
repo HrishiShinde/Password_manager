@@ -14,7 +14,7 @@ def dologin(request):
 
         for u in User.objects.raw('select * from User where userName="%s" and userPass="%s"' % (uname, upass)):
             if u.userName == uname:
-                request.session['user_entered'] = uname
+                request.session['user'] = uname
                 return render(request, "home.html", {"success":"Welcome " + u.userName+ ", Your safe is ready!"})
         else:
             return render(request, "login.html", {"fail":"Login failed, Please enter your Username and password correctly!"})
@@ -33,6 +33,22 @@ def doregister(request):
         cursor.execute(query)
         transaction.commit()
 
-        request.session['user_entered'] = uname
+        request.session['user'] = uname
         #return render_template('simple.html',data=json.dumps(name))
         return render(request, "home.html", {"success":"Welcome " + uname + ", Your safe is created!"})
+
+def showap(request):
+    return render(request, "addpass.html", {"username" : request.session['user']})
+
+def storepass(request):
+    if request.method == "POST":
+        uname = request.POST.get('uname')
+        sname = request.POST.get('sname')
+        upass = request.POST.get('pass')
+
+        cursor = connection.cursor()
+        query = "insert into Password(userName, siteName, sitePass) values('%s', '%s', '%s')" % (uname, sname, upass)
+        cursor.execute(query)
+        transaction.commit()
+
+        return render(request, "home.html", {"success":"Your password was stored safe in your Safe!"})

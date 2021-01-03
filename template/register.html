@@ -1,3 +1,4 @@
+{% load static %}
 <html>
 <head>
     <title>Register</title>
@@ -7,9 +8,9 @@
     <form action="/register/" method="POST">
         {% csrf_token %}
         <label for="Username">Name: <input type="text" name="name"></label><br>
-        <label for="Password">Email: <input type="text" name="email"></label><br>
-        <label for="Username">Password: <input type="password" name="pass"></label><br>
-        <label for="Password">Confirm Password: <input type="password" name="cpass"></label><br>
+        <label for="Email">Email: <input type="text" name="email"></label><br>
+        <label for="Password">Password: <input type="password" name="pass"></label><br>
+        <label for="Confirm Password">Confirm Password: <input type="password" name="cpass"></label><br>
         <input type="submit" name="submit" value="Register">
     </form>
 </body>

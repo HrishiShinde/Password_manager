@@ -23,4 +23,6 @@ urlpatterns = [
     path('login/',pm.dologin),
     path('regshow/', pm.regshow),
     path('register/',pm.doregister),
+    path('showAddPass/', pm.showap),
+    path('store/',pm.storepass),
 ]

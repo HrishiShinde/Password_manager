@@ -1,0 +1,16 @@
+{% load static %}
+<html>
+<head>
+    <title>Register</title>
+</head>
+<body>
+    {{fail}}
+    <form action="/store/" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="uname" value="{{username}}">
+        <label for="Password">Sitename: <input type="text" name="sname"></label><br>
+        <label for="Username">Password: <input type="password" name="pass"></label><br>
+        <input type="submit" name="submit" value="Save">
+    </form>
+</body>
+</html>
