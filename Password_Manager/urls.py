@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('logshow/', pm.logshow),
     path('login/',pm.dologin),
+    path('regshow/', pm.regshow),
+    path('register/',pm.doregister),
 ]

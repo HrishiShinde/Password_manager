@@ -1,8 +1,21 @@
+{% load static %}
 <html>
     <head>
         <title>PASSWORD MANAGER</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function (){
+                setTimeout(hidebox, 5000);
+                function hidebox(){
+                    $('#user').fadeOut()
+                }
+            });
+        </script>
     </head>
     <body>
-        {{success}}
+        <p id="user">{{success}}</p>
+
+        <button><a href="#">add password</a></button>
+        <button><a href="#">get password</a></button>
     </body>
 </html>
