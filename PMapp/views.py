@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from PMapp.models import User
 from django.db import connection,transaction
+from cryptography.fernet import Fernet
+import random
+import pyperclip
 
 # Create your views here.
 def logshow(request):
@@ -52,3 +55,16 @@ def storepass(request):
         transaction.commit()
 
         return render(request, "home.html", {"success":"Your password was stored safe in your Safe!"})
+
+def genpass(request):
+    chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*?"
+    password=""
+    for i in range(8):
+        pass_char = random.choice(chars)
+        password = password + pass_char
+
+    pyperclip.copy(password)
+    #spam = pyperclip.paste()
+
+    data = {"pass" : password, "ctcb" : "copied"}
+    return JsonResponse(data)

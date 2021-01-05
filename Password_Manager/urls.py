@@ -25,4 +25,5 @@ urlpatterns = [
     path('register/',pm.doregister),
     path('showAddPass/', pm.showap),
     path('store/',pm.storepass),
+    path('genp/',pm.genpass),
 ]

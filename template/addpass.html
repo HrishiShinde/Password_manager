@@ -2,6 +2,37 @@
 <html>
 <head>
     <title>Register</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function(){  
+                $("#butt").click(function(){
+                    genpass()
+                });
+            });
+            function genpass(){
+                $.ajax({
+                    url:'/genp/',
+                    method: 'GET',
+                    async: true,
+                    cache: false,
+                    success:function(data){
+                        $("#pass").val(data.pass)
+                        if (data.ctcb == "copied"){
+                            alert('Password copied to clipboard!');
+                        }
+                    }
+                });
+            }
+            /*
+            function copypass(){
+                var passfield = document.getElementById("pass");
+                passfield.select();
+                passfield.setSelectionRange(0, 99999);
+                document.execCommand("copy");
+                alert("Password copied to clipboard!");
+            }*/
+        </script>
 </head>
 <body>
     {{fail}}
@@ -9,7 +40,7 @@
         {% csrf_token %}
         <input type="hidden" name="uname" value="{{username}}">
         <label for="Password">Sitename: <input type="text" name="sname"></label><br>
-        <label for="Username">Password: <input type="password" name="pass"></label><br>
+        <label for="Username">Password: <input type="password" name="pass" id="pass"></label><a id="butt">Generate Password</a><br>
         <input type="submit" name="submit" value="Save">
     </form>
 </body>
