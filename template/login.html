@@ -1,14 +1,68 @@
 <html>
 <head>
     <title>Login</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+            background-color:E7EEFB;
+        }
+        form{
+            margin-left:430px;
+            margin-top:170px;
+            padding-top:50px;
+            padding-bottom:50px;
+            width:500px;
+        }
+        label{
+            font-family: 'Comfortaa', cursive;
+        }
+        .login{
+            padding:20px;
+            padding-left:180px;
+        }
+        .textbox{
+            background:transparent;
+            display:block;
+            padding-top:10px;
+            margin-bottom:20px;
+            /border:none;
+        }
+        .inputborder{
+            display:inline-block;
+            width:0px;
+            height: 2px;
+            background: #FFC03D;
+            position: relative;
+            top:-5px;
+            -webkit-transition: all ease-in-out .15s;
+            -o-transition: all ease-in-out .15s;
+            transition: all ease-in-out .15s;
+        }
+        .textbox:hover,
+        .textbox:active,
+        .textbox:focus{
+            outline:none;
+        }
+        .textbox:hover+.inputborder,
+        .textbox:active+.inputborder,
+        .textbox:focus+.inputborder{
+            width:100%;
+        }
+    </style>
 </head>
 <body>
     {{fail}}
     <form action="/login/" method="POST">
         {% csrf_token %}
-        <label for="Username">Username: <input type="text" name="username"></label><br>
-        <label for="Password">Password: <input type="password" name="password"></label><br>
-        <input type="submit" name="submit" value="Login">
+        <div class="login">
+            <label >Username : </label><br>
+            <input type="text" name="username" class="textbox"><span class="inputborder"></span><br>
+            <label>Password : </label><br>
+            <input type="password" name="password" class="textbox"><span class="inputborder"></span><br>
+            <input type="submit" value="Login">
+        </div>
     </form>
 </body>
 </html>
