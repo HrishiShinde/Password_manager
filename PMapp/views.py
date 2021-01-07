@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from PMapp.models import User
+from PMapp.models import User,Password
 from django.db import connection,transaction
 from cryptography.fernet import Fernet
-import random
-import pyperclip
+from secret_file import enc_pass, dec_pass, pass_hash
+import random, pyperclip
+
 
 # Create your views here.
 def logshow(request):
@@ -15,8 +16,14 @@ def dologin(request):
         uname = request.POST.get("username")
         upass = request.POST.get("password")
 
-        for u in User.objects.raw('select * from User where userName="%s" and userPass="%s"' % (uname, upass)):
-            if u.userName == uname:
+        upass = pass_hash(upass)
+
+        #user = User(userName = uname)
+        #print(user.userPass,"----------",upass)
+
+        for u in User.objects.raw('select * from User where userName="%s"' % (uname)):
+            if u.userPass == upass:
+                print(upass,"<----Entered pass||DB pass---->",u.userPass,type(u.userPass))
                 request.session['user'] = uname
                 return render(request, "home.html", {"success":"Welcome " + u.userName+ ", Your safe is ready!"})
         else:
@@ -30,12 +37,19 @@ def doregister(request):
         uname = request.POST.get('name')
         umail = request.POST.get('email')
         upass = request.POST.get('pass')
+ 
+        #upass = str(pass_hash(upass))[2:-1]
+        upass = pass_hash(upass)
+        print(type(upass), "-----------------------------")
 
         cursor = connection.cursor()
+        query_obj = User.objects.create(userName = uname, userEmail = umail, userPass = upass)
+        query_obj.save()
+        '''
         query = "insert into User(userName, userEmail, userPass) values('%s', '%s', '%s')" % (uname, umail, upass)
         cursor.execute(query)
         transaction.commit()
-
+        '''
         request.session['user'] = uname
         #return render_template('simple.html',data=json.dumps(name))
         return render(request, "home.html", {"success":"Welcome " + uname + ", Your safe is created!"})
@@ -47,13 +61,22 @@ def storepass(request):
     if request.method == "POST":
         uname = request.POST.get('uname')
         sname = request.POST.get('sname')
-        upass = request.POST.get('pass')
+        spass = request.POST.get('pass')
+
+        for u in User.objects.raw('select * from User where userName="%s"' % (uname)):
+            upass = u.userPass
+        
+        
+        renc_pass = enc_pass(spass,upass)
 
         cursor = connection.cursor()
-        query = "insert into Password(userName, siteName, sitePass) values('%s', '%s', '%s')" % (uname, sname, upass)
+        query_obj = Password.objects.create(userName = uname, siteName = sname, sitePass = renc_pass)
+        query_obj.save()
+        '''
+        query = "insert into Password(userName, siteName, sitePass) values('%s', '%s', '%s')" % (uname, sname, renc_pass)
         cursor.execute(query)
         transaction.commit()
-
+        '''
         return render(request, "home.html", {"success":"Your password was stored safe in your Safe!"})
 
 def genpass(request):
@@ -68,3 +91,12 @@ def genpass(request):
 
     data = {"pass" : password, "ctcb" : "copied"}
     return JsonResponse(data)
+
+def encrypt(spass, key):
+
+    cyrpter = Fernet(key)
+    enc_pass = cyrpter.encrypt(spass)
+
+    print(enc_pass)
+    return enc_pass
+
