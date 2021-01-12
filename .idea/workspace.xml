@@ -20,25 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a75fe36-cdf2-4264-ac59-48761a2f06c2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/PMapp/migrations/0003_password.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PMapp/migrations/0004_auto_20210106_1227.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PMapp/migrations/0005_auto_20210106_1256.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PMapp/migrations/0006_auto_20210106_1643.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PMapp/migrations/0007_auto_20210107_1145.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PMapp/migrations/0008_auto_20210107_1158.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PMapp/migrations/0009_auto_20210107_1203.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PMapp/migrations/0010_auto_20210107_1227.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/secret_file.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/template/addpass.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PMapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/PMapp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PMapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/PMapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PMapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/PMapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Password_Manager/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Password_Manager/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/template/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/template/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,14 +96,22 @@
     <option name="LAST_COMMIT_MESSAGE" value="new commit" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="2" y="25" width="1356" height="584" key="DiffContextDialog" timestamp="1610464834248">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="2" y="25" width="1356" height="584" key="DiffContextDialog/0.0.1366.768@0.0.1366.768" timestamp="1610464834248" />
     <state x="463" y="137" key="FileChooserDialogImpl" timestamp="1610424087291">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="463" y="137" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1610424087291" />
-    <state x="184" y="14" key="SettingsEditor" timestamp="1610025351152">
+    <state x="184" y="14" key="SettingsEditor" timestamp="1610442740773">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="184" y="14" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1610025351152" />
+    <state x="184" y="14" key="SettingsEditor/0.0.1366.768@0.0.1366.768" timestamp="1610442740773" />
+    <state x="530" y="296" key="VCS.ChangelistChooser" timestamp="1610441940501">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="530" y="296" key="VCS.ChangelistChooser/0.0.1366.768@0.0.1366.768" timestamp="1610441940501" />
     <state x="500" y="296" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1610023203766">
       <screen x="0" y="0" width="1366" height="768" />
     </state>

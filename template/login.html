@@ -10,14 +10,47 @@
             background-color:E7EEFB;
         }
         form{
-            left:540px;
-            top:200px;
-            position:relative;
-            height:50px;
-            width:350px;
-            overflow:hidden;
+            left : 540px;
+            top : 200px;
+            position : relative;
+            width : 400px;
+            overflow : hidden;
         }
-        .userinput{
+        .inputs{
+            padding-top: 5px;
+            display: flex;
+            flex-direction: column;
+        }
+        input{
+            width:300px;
+            height:50px;
+            border: none;
+        }
+        label{
+            order: -1;
+            padding-left: 5px;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+        .user{
+            color: grey;
+            position: relative;
+            top: 20px;
+            bottom: 0px;
+        }
+        input:focus + label,
+        input:valid + label{
+            transform: translateY(2%);
+        }
+        input:hover + label,
+        input:valid + label{
+            transform: translateY(2%);
+        }
+    </style>
+</head>
+<body>
+<!--        .userinput{
             background: transparent;
             width:100%;
             height:100%;
@@ -35,7 +68,6 @@
             border-bottom:1px solid black;
         }
         .userlabel::after{
-            content="hello";
             position:absolute;
             left:0px;
             bottom:0px;
@@ -100,28 +132,19 @@
             transform:translateY(-150%);
             font-size:15px;
             color:blue;
-        }
-        .passinput:focus + .passlabel::after,
-        .passinput:valid + .passlabel::after{
-            transform:translate(0%);
-        }
-
-    </style>
-</head>
-<body>
+-->
     {{fail}}
     <form action="/login/" method="POST">
         {% csrf_token %}
-        <input type="text" class="userinput" name="username" autocomplete="off" required>
-        <label class="userlabel">
-            <span class="username">Username</span>
-        </label>
-        <div class="password1">
-            <input type="text" class="passinput" name="password" autocomplete="off" required>
-            <label class="passlabel">
-                <span class="password">Password</span>
-            </label>
+        <div class="inputs">
+            <input type="text" class="userinput" name="username" autocomplete="off" required>
+            <label class="userlabel" ><span class="user">Username</span></label>
         </div>
+        <div class="inputs">
+            <input type="text" class="passinput" name="password" autocomplete="off" required>
+            <label class="passlabel"><span class="user">Password</span></label>
+        </div>
+
     </form>
 </body>
 </html>
