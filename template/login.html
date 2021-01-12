@@ -1,3 +1,4 @@
+{% load static %}
 <html>
 <head>
     <title>Login</title>
@@ -9,59 +10,117 @@
             background-color:E7EEFB;
         }
         form{
-            margin-left:430px;
-            margin-top:170px;
-            padding-top:50px;
-            padding-bottom:50px;
-            width:500px;
+            left:540px;
+            top:200px;
+            position:relative;
+            height:50px;
+            width:350px;
+            overflow:hidden;
         }
-        label{
-            font-family: 'Comfortaa', cursive;
-        }
-        .login{
-            padding:20px;
-            padding-left:180px;
-        }
-        .textbox{
-            background:transparent;
-            display:block;
-            padding-top:10px;
-            margin-bottom:20px;
-            /border:none;
-        }
-        .inputborder{
-            display:inline-block;
-            width:0px;
-            height: 2px;
-            background: #FFC03D;
-            position: relative;
-            top:-5px;
-            -webkit-transition: all ease-in-out .15s;
-            -o-transition: all ease-in-out .15s;
-            transition: all ease-in-out .15s;
-        }
-        .textbox:hover,
-        .textbox:active,
-        .textbox:focus{
-            outline:none;
-        }
-        .textbox:hover+.inputborder,
-        .textbox:active+.inputborder,
-        .textbox:focus+.inputborder{
+        .userinput{
+            background: transparent;
             width:100%;
+            height:100%;
+            padding-top:20px;
+            border:none;
         }
+        .userlabel{
+        backgound: transparent;
+            position:absolute;
+            bottom:0px;
+            left:0px;
+            width:100%;
+            height:100px;
+            pointer-events:none;
+            border-bottom:1px solid black;
+        }
+        .userlabel::after{
+            content="hello";
+            position:absolute;
+            left:0px;
+            bottom:0px;
+            height:100%;
+            width:100%;
+            border-bottom:3px solid red;
+            transform:translateX(-100%);
+            transition:transform 0.3s ease;
+        }
+        .username{
+            position:absolute;
+            bottom:5px;
+            left:0px;
+            transition: all 0.5s ease;
+        }
+        .userinput:focus + .userlabel .username,
+        .userinput:valid + .userlabel .username{
+            transform:translateY(-150%);
+            font-size:15px;
+            color:blue;
+        }
+        .userinput:focus + .userlabel::after,
+        .userinput:valid + .userlabel::after{
+            transform:translate(0%);
+        }
+
+        /password
+        .passinput{
+            width:0%;
+            height:0%;
+            padding-top:20px;
+            border:none;
+        }
+        .passlabel{
+            position:absolute;
+            bottom:-20px;
+            left:10px;
+            width:100%;
+            height:100px;
+            pointer-events:none;
+            border-bottom:1px solid black;
+        }
+        .passlabel::after{
+            content="hello";
+            position:absolute;
+            left:0px;
+            bottom:0px;
+            height:100%;
+            width:100%;
+            border-bottom:3px solid red;
+            transform:translateX(-100%);
+            transition:transform 0.3s ease;
+        }
+        .password{
+            position:absolute;
+            bottom:0px;
+            left:0px;
+            transition: all 0.5s ease;
+        }
+        .passinput:focus + .passlabel .password,
+        .passinput:valid + .passlabel .password{
+            transform:translateY(-150%);
+            font-size:15px;
+            color:blue;
+        }
+        .passinput:focus + .passlabel::after,
+        .passinput:valid + .passlabel::after{
+            transform:translate(0%);
+        }
+
     </style>
 </head>
 <body>
     {{fail}}
     <form action="/login/" method="POST">
         {% csrf_token %}
-        <div class="login">
-            <label >Username : </label><br>
-            <input type="text" name="username" class="textbox"><span class="inputborder"></span><br>
-            <label>Password : </label><br>
-            <input type="password" name="password" class="textbox"><span class="inputborder"></span><br>
-            <input type="submit" value="Login">
+        <input type="text" class="userinput" name="username" autocomplete="off" required>
+        <label class="userlabel">
+            <span class="username">Username</span>
+        </label>
+        <div class="password1">
+            <input type="text" class="passinput" name="password" autocomplete="off" required>
+            <label class="passlabel">
+                <span class="password">Password</span>
+            </label>
         </div>
     </form>
 </body>
