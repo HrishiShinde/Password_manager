@@ -6,7 +6,6 @@ from cryptography.fernet import Fernet
 from secret_file import enc_pass, dec_pass, pass_hash
 import random, pyperclip
 
-
 # Create your views here.
 def logshow(request):
     return render(request, "login.html")
@@ -17,9 +16,6 @@ def dologin(request):
         upass = request.POST.get("password")
 
         upass = pass_hash(upass)
-
-        #user = User(userName = uname)
-        #print(user.userPass,"----------",upass)
 
         for u in User.objects.raw('select * from User where userName="%s"' % (uname)):
             if u.userPass == upass:
@@ -40,16 +36,11 @@ def doregister(request):
  
         #upass = str(pass_hash(upass))[2:-1]
         upass = pass_hash(upass)
-        print(type(upass), "-----------------------------")
 
         cursor = connection.cursor()
         query_obj = User.objects.create(userName = uname, userEmail = umail, userPass = upass)
         query_obj.save()
-        '''
-        query = "insert into User(userName, userEmail, userPass) values('%s', '%s', '%s')" % (uname, umail, upass)
-        cursor.execute(query)
-        transaction.commit()
-        '''
+
         request.session['user'] = uname
         #return render_template('simple.html',data=json.dumps(name))
         return render(request, "home.html", {"success":"Welcome " + uname + ", Your safe is created!"})
@@ -67,16 +58,12 @@ def storepass(request):
             upass = u.userPass
         
         
-        renc_pass = enc_pass(spass,upass)
+        renc_pass = enc_pass(spass,uname)
 
         cursor = connection.cursor()
         query_obj = Password.objects.create(userName = uname, siteName = sname, sitePass = renc_pass)
         query_obj.save()
-        '''
-        query = "insert into Password(userName, siteName, sitePass) values('%s', '%s', '%s')" % (uname, sname, renc_pass)
-        cursor.execute(query)
-        transaction.commit()
-        '''
+
         return render(request, "home.html", {"success":"Your password was stored safe in your Safe!"})
 
 def genpass(request):
@@ -92,11 +79,29 @@ def genpass(request):
     data = {"pass" : password, "ctcb" : "copied"}
     return JsonResponse(data)
 
-def encrypt(spass, key):
+def showpass(request):
+    uname = request.session['user']
+    sitename = []
+    sitepass = []
+    data = {}
+    for s in Password.objects.raw('select * from Password where userName="%s"' % (uname)):
+        sin = s.siteName
+        sip = s.sitePass
 
-    cyrpter = Fernet(key)
-    enc_pass = cyrpter.encrypt(spass)
+        sitename.append(sin)
+        sitepass.append(str(dec_pass(uname, sip))[2:-1])
+        data[sin] = str(dec_pass(uname, sip))[2:-1]
+        break
+    else:
+        return render(request, "home.html", {"no_pass": "You haven't stored any passwords yet!"})
+    
+    #data = Password.objects.raw('select * from Password where userName="%s"' % (uname))
 
-    print(enc_pass)
-    return enc_pass
+    print(sitename)
+    print(sitepass)
+    print(data)
+    #rdec_pass = str(dec_pass(uname, sitepass))[2:-1]
+    #data = {"pass": sitepass, "sitename" : sitename}
+
+    return render(request, "home.html", data)
 
