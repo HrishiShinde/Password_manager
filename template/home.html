@@ -17,6 +17,7 @@
 
         <button><a href="/showAddPass/">add password</a></button>
         <button><a href="/showp/">get password</a></button>
+        <button><a href="/logout/">Logout</a></button>
         
         <table border="1">
             <thead>
@@ -26,10 +27,10 @@
                 </tr>
             </thead>
             <tbody>
-                {% for key in data %}
+                {% for key, value in data.items %}
                 <tr>
                     <td>{{key}}</td>
-                    <td>{{key}}</td>
+                    <td>{{value}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

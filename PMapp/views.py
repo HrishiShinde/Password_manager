@@ -45,6 +45,12 @@ def doregister(request):
         #return render_template('simple.html',data=json.dumps(name))
         return render(request, "home.html", {"success":"Welcome " + uname + ", Your safe is created!"})
 
+def logout(request):
+    sesh = list(request.session.keys())
+    for key in sesh:
+        del request.session[key]
+    return render(request, 'login.html',{'fail':'Logout Successfully!'})
+
 def showap(request):
     return render(request, "addpass.html", {"username" : request.session['user']})
 
@@ -84,24 +90,21 @@ def showpass(request):
     sitename = []
     sitepass = []
     data = {}
-    for s in Password.objects.raw('select * from Password where userName="%s"' % (uname)):
-        sin = s.siteName
-        sip = s.sitePass
-
-        sitename.append(sin)
-        sitepass.append(str(dec_pass(uname, sip))[2:-1])
-        data[sin] = str(dec_pass(uname, sip))[2:-1]
-        break
-    else:
-        return render(request, "home.html", {"no_pass": "You haven't stored any passwords yet!"})
     
-    #data = Password.objects.raw('select * from Password where userName="%s"' % (uname))
-
-    print(sitename)
-    print(sitepass)
-    print(data)
-    #rdec_pass = str(dec_pass(uname, sitepass))[2:-1]
-    #data = {"pass": sitepass, "sitename" : sitename}
-
-    return render(request, "home.html", data)
+    if Password.objects.raw('select * from Password where userName="%s"' % (uname)):
+        print("DB CHECKED! DATA PRESENT")
+        for s in Password.objects.raw('select * from Password where userName="%s"' % (uname)):
+            sin = s.siteName
+            sip = s.sitePass
+            print(sin, sip, "#"*10)
+            sitename.append(sin)
+            sitepass.append(str(dec_pass(uname, sip))[2:-1])
+            #data1['sitename'] = sin
+            #data1['pass'] = str(dec_pass(uname, sip))[2:-1]
+            data[sin] = str(dec_pass(uname, sip))[2:-1]
+        
+        return render(request, "home.html", {'data' : data})
+    else:
+        print("DB CHECKED! DATA not PRESENT")
+        return render(request, "home.html", {"no_pass": "You haven't stored any passwords yet!"})
 
